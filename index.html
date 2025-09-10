@@ -42,11 +42,12 @@
             padding: 0 20px;
         }
         
-        /* Language Selector - Fixed position */
+        /* Language Selector - Top Middle Position */
         .language-selector {
-            position: fixed;
-            top: 90px;
-            right: 20px;
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
             z-index: 1100;
             display: flex;
             background: white;
@@ -56,8 +57,9 @@
         }
 
         body[dir="rtl"] .language-selector {
+            left: 50%;
             right: auto;
-            left: 20px;
+            transform: translateX(-50%);
         }
         
         .language-btn {
@@ -83,6 +85,7 @@
             width: 100%;
             top: 0;
             z-index: 1000;
+            padding-top: 60px; /* Added padding to accommodate the language selector */
         }
         
         nav {
@@ -596,19 +599,17 @@
             }
 
             .language-selector {
-                top: 70px;
-                right: 10px;
+                top: 10px;
             }
 
-            body[dir="rtl"] .language-selector {
-                right: auto;
-                left: 10px;
+            header {
+                padding-top: 50px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Language Selector - Fixed position -->
+    <!-- Language Selector - Top Middle Position -->
     <div class="language-selector">
         <button class="language-btn active" data-lang="en">EN</button>
         <button class="language-btn" data-lang="ar">AR</button>
@@ -1125,7 +1126,7 @@
                 "solution-feature2-title": "Conçu pour l'Entreprise:",
                 "solution-feature2-desc": "Sécurité, journalisation, surveillance et gestion des erreurs intégrées dans chaque module.",
                 "solution-feature3-title": "Grandissez à Votre Rythme:",
-                "solution-feature3-desc": "Conception véritablement modulaire. Commencez avec Core 1.0, puis étendez-vous de manière transparente.",
+                "solution-feature3-desc": "Conception véritablely modulaire. Commencez avec Core 1.0, puis étendez-vous de manière transparente.",
                 "solution-feature4-title": "Licence Unique, Déploiement Partout:",
                 "solution-feature4-desc": "La licence perpétuelle vous donne la liberté dans toute votre organisation.",
                 "solution-pricing": "Voir les Plans Tarifaires",
