@@ -3,25 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Core Suite - AI Ingestion Framework | Gaiva&Aether</title>
+    <title>Core Suite - AI-Powered Data Ingestion Framework | Gaiva&Aether</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #2563eb;
-            --primary-dark: #1d4ed8;
-            --secondary: #7e22ce;
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #10b981;
             --accent: #06b6d4;
             --light: #f8fafc;
             --dark: #0f172a;
             --gray: #64748b;
             --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --gradient-start: #6366f1;
+            --gradient-end: #8b5cf6;
+            --card-bg: #ffffff;
+            --header-bg: rgba(255, 255, 255, 0.95);
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
@@ -32,7 +39,7 @@
         }
 
         body[dir="rtl"] {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         .container {
@@ -50,10 +57,12 @@
             transform: translateX(-50%);
             z-index: 1100;
             display: flex;
-            background: white;
+            background: var(--header-bg);
             border-radius: 50px;
-            padding: 5px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 6px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
         }
 
         body[dir="rtl"] .language-selector {
@@ -65,27 +74,30 @@
         .language-btn {
             background: none;
             border: none;
-            padding: 8px 12px;
+            padding: 8px 16px;
             border-radius: 50px;
             cursor: pointer;
             font-weight: 500;
             transition: all 0.3s;
+            font-size: 0.9rem;
         }
         
         .language-btn.active {
             background-color: var(--primary);
             color: white;
+            box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
         }
         
         /* Header & Navigation */
         header {
-            background-color: white;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            background-color: var(--header-bg);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            padding-top: 60px; /* Added padding to accommodate the language selector */
+            padding-top: 60px;
+            backdrop-filter: blur(10px);
         }
         
         nav {
@@ -96,11 +108,12 @@
         }
         
         .logo {
-            font-size: 24px;
-            font-weight: 700;
+            font-size: 28px;
+            font-weight: 800;
             color: var(--primary);
             display: flex;
             align-items: center;
+            letter-spacing: -0.5px;
         }
         
         .logo span {
@@ -113,12 +126,12 @@
         }
         
         .nav-links li {
-            margin-left: 30px;
+            margin-left: 32px;
         }
 
         body[dir="rtl"] .nav-links li {
             margin-left: 0;
-            margin-right: 30px;
+            margin-right: 32px;
         }
         
         .nav-links a {
@@ -126,111 +139,178 @@
             color: var(--dark);
             font-weight: 500;
             transition: color 0.3s;
+            font-size: 1rem;
+            position: relative;
         }
         
         .nav-links a:hover {
             color: var(--primary);
         }
         
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
         .cta-button {
             background-color: var(--primary);
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
+            padding: 12px 24px;
+            border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
+            font-size: 1rem;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
         }
         
         .cta-button:hover {
             background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(99, 102, 241, 0.35);
         }
         
         /* Hero Section */
         .hero {
-            padding: 160px 0 100px;
-            background: linear-gradient(120deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: 180px 0 120px;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(79, 70, 229, 0.15) 100%);
+            top: -250px;
+            right: -250px;
+            z-index: 0;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.15) 100%);
+            bottom: -200px;
+            left: -200px;
+            z-index: 0;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
         }
         
         .hero h1 {
             font-size: 3.5rem;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             background: linear-gradient(90deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
         }
         
         .hero p {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             color: var(--gray);
             max-width: 800px;
-            margin: 0 auto 40px;
+            margin: 0 auto 48px;
+            font-weight: 400;
         }
         
         .hero-buttons {
             display: flex;
             justify-content: center;
             gap: 20px;
-            margin-top: 30px;
+            margin-top: 40px;
         }
         
         .primary-btn {
             background-color: var(--primary);
             color: white;
-            padding: 15px 30px;
-            border-radius: 8px;
+            padding: 16px 32px;
+            border-radius: 10px;
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s;
             border: 2px solid var(--primary);
+            box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
         
         .primary-btn:hover {
             background-color: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
         }
         
         .secondary-btn {
             background-color: transparent;
             color: var(--primary);
-            padding: 15px 30px;
-            border-radius: 8px;
+            padding: 16px 32px;
+            border-radius: 10px;
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s;
             border: 2px solid var(--primary);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
         
         .secondary-btn:hover {
-            background-color: rgba(37, 99, 235, 0.1);
-            transform: translateY(-2px);
+            background-color: rgba(99, 102, 241, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(99, 102, 241, 0.2);
         }
         
         /* Problem Section */
         .problem {
             padding: 100px 0;
             background-color: white;
+            position: relative;
         }
         
         .section-title {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 70px;
         }
         
         .section-title h2 {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             color: var(--dark);
             margin-bottom: 20px;
+            font-weight: 700;
         }
         
         .section-title p {
             color: var(--gray);
             max-width: 700px;
             margin: 0 auto;
+            font-size: 1.2rem;
         }
         
         .problem-grid {
@@ -241,40 +321,66 @@
         }
         
         .problem-card {
-            background: linear-gradient(145deg, #f8fafc, #e2e8f0);
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            background: white;
+            padding: 40px 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             text-align: center;
-            transition: transform 0.3s;
+            transition: all 0.3s;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .problem-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
         }
         
         .problem-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
         }
         
         .problem-card i {
-            font-size: 3rem;
-            color: #ef4444;
-            margin-bottom: 20px;
+            font-size: 3.5rem;
+            margin-bottom: 24px;
+            display: block;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
         
         .problem-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
+            font-size: 1.6rem;
+            margin-bottom: 16px;
             color: var(--dark);
+            font-weight: 600;
+        }
+        
+        .problem-card p {
+            color: var(--gray);
+            line-height: 1.7;
         }
         
         /* Solution Section */
         .solution {
-            padding: 100px 0;
-            background: linear-gradient(120deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: 120px 0;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            position: relative;
+            overflow: hidden;
         }
         
         .solution-content {
             display: flex;
             align-items: center;
-            gap: 50px;
+            gap: 60px;
             margin-top: 50px;
         }
         
@@ -285,12 +391,32 @@
         .solution-image {
             flex: 1;
             text-align: center;
+            position: relative;
         }
         
         .solution-image img {
             max-width: 100%;
-            border-radius: 12px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+            transition: all 0.5s ease;
+        }
+        
+        .solution-image img:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+        }
+        
+        .solution-image::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--primary);
+            border-radius: 16px;
+            top: 15px;
+            left: 15px;
+            z-index: -1;
+            opacity: 0.3;
         }
         
         .feature-list {
@@ -299,16 +425,27 @@
         }
         
         .feature-list li {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             display: flex;
             align-items: flex-start;
+            padding: 15px 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+        
+        .feature-list li:hover {
+            transform: translateX(5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
         }
         
         .feature-list i {
             color: var(--success);
             margin-right: 15px;
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             margin-top: 4px;
+            flex-shrink: 0;
         }
 
         body[dir="rtl"] .feature-list i {
@@ -318,32 +455,33 @@
         
         /* Pricing Section */
         .pricing {
-            padding: 100px 0;
+            padding: 120px 0;
             background-color: white;
         }
         
         .pricing-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
             margin-top: 50px;
         }
         
         .pricing-card {
             background: white;
-            border-radius: 12px;
+            border-radius: 16px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             padding: 40px 30px;
             text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid #e2e8f0;
+            transition: all 0.3s;
+            border: 1px solid rgba(0, 0, 0, 0.05);
             position: relative;
             overflow: hidden;
         }
         
         .pricing-card.popular {
             border: 2px solid var(--primary);
-            transform: scale(1.05);
+            transform: scale(1.03);
+            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.15);
         }
         
         .pricing-card.popular::before {
@@ -355,7 +493,7 @@
             color: white;
             font-size: 0.7rem;
             font-weight: 600;
-            padding: 5px 15px;
+            padding: 6px 20px;
             border-bottom-left-radius: 8px;
         }
 
@@ -372,16 +510,33 @@
         }
         
         .pricing-card h3 {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             margin-bottom: 15px;
             color: var(--dark);
+            font-weight: 600;
         }
         
         .price {
-            font-size: 2.5rem;
-            font-weight: 700;
+            font-size: 2.8rem;
+            font-weight: 800;
             color: var(--primary);
             margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: baseline;
+        }
+        
+        .price span {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--gray);
+            margin-left: 4px;
+        }
+        
+        .pricing-card > p {
+            color: var(--gray);
+            margin-bottom: 25px;
+            font-size: 1.1rem;
         }
         
         .pricing-features {
@@ -398,11 +553,29 @@
             margin-bottom: 12px;
             display: flex;
             align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         }
         
         .pricing-features i {
-            color: var(--success);
             margin-right: 10px;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 0.8rem;
+        }
+        
+        .pricing-features i.fa-check {
+            color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
+        }
+        
+        .pricing-features i.fa-times {
+            color: var(--error);
+            background: rgba(239, 68, 68, 0.1);
         }
 
         body[dir="rtl"] .pricing-features i {
@@ -412,8 +585,8 @@
 
         /* Payment Section */
         .payment-section {
-            padding: 80px 0;
-            background: linear-gradient(120deg, #f极f9ff 0%, #e0f2fe 100%);
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
             text-align: center;
         }
 
@@ -427,24 +600,25 @@
 
         .payment-method {
             background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 极 5px 15px rgba(0, 0, 0, 0.08);
-            width: 200px;
-            transition: transform 0.3s;
+            padding: 30px 25px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            width: 220px;
+            transition: all 0.3s;
         }
 
         .payment-method:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
         }
 
         .payment-method i {
-            font-size: 3rem;
-            margin-bottom: 15px;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
             display: block;
         }
 
-        .payment极ethod.paypal i {
+        .payment-method.paypal i {
             color: #003087;
         }
 
@@ -466,21 +640,41 @@
         
         /* CTA Section */
         .cta-section {
-            padding: 100px 0;
-            background: linear-gradient(120deg, var(--primary), var(--secondary));
+            padding: 120px 0;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
             color: white;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.3;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        
+        .cta-content {
+            position: relative;
+            z-index: 2;
         }
         
         .cta-section h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
+            font-size: 2.8rem;
+            margin-bottom: 24px;
+            font-weight: 700;
         }
         
         .cta-section p {
             max-width: 700px;
-            margin: 0 auto 40px;
-            font-size: 1.2rem;
+            margin: 0 auto 48px;
+            font-size: 1.3rem;
             opacity: 0.9;
         }
         
@@ -488,7 +682,7 @@
         footer {
             background-color: var(--dark);
             color: white;
-            padding: 60px 0 30px;
+            padding: 80px 0 40px;
         }
         
         .footer-content {
@@ -499,9 +693,10 @@
         }
         
         .footer-column h3 {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
+            font-size: 1.3rem;
+            margin-bottom: 24px;
             color: #e2e8f0;
+            font-weight: 600;
         }
         
         .footer-column ul {
@@ -516,6 +711,7 @@
             color: #94a3b8;
             text-decoration: none;
             transition: color 0.3s;
+            font-size: 1rem;
         }
         
         .footer-column a:hover {
@@ -525,7 +721,7 @@
         .contact-info {
             display: flex;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 16px;
         }
 
         body[dir="rtl"] .contact-info {
@@ -534,18 +730,19 @@
         }
 
         .contact-info i {
-            margin-right: 10px;
+            margin-right: 12px;
             width: 20px;
+            color: var(--primary);
         }
 
         body[dir="rtl"] .contact-info i {
             margin-right: 0;
-            margin-left: 10px;
+            margin-left: 12px;
         }
         
         .copyright {
             text-align: center;
-            padding-top: 30px;
+            padding-top: 40px;
             border-top: 1px solid #334155;
             color: #94a3b8;
             font-size: 0.9rem;
@@ -571,7 +768,7 @@
                 display: none;
             }
             
-            .hero h极 {
+            .hero h1 {
                 font-size: 2.2rem;
             }
             
@@ -636,12 +833,12 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="container">
+        <div class="container hero-content">
             <h1 data-translate="hero-title">Stop Building Ingestion Pipelines, Start Using Them</h1>
             <p data-translate="hero-subtitle">The enterprise-grade framework that turns data chaos into a connected, AI-ready pipeline in days, not months.</p>
             <div class="hero-buttons">
-                <a href="#极ricing" class="primary-btn" data-translate="hero-pricing">View Pricing</a>
-                <a href="#demo" class="secondary-btn" data-translate="hero-demo">Schedule a Demo</a>
+                <a href="#pricing" class="primary-btn" data-translate="hero-pricing"><i class="fas fa-credit-card"></i> View Pricing</a>
+                <a href="#demo" class="secondary-btn" data-translate="hero-demo"><i class="fas fa-calendar"></i> Schedule a Demo</a>
             </div>
         </div>
     </section>
@@ -662,7 +859,7 @@
                 <div class="problem-card">
                     <i class="fas fa-bug"></i>
                     <h3 data-translate="problem2-title">Costly Errors</h3>
-                    <极 data-translate="problem2-desc">Fragile, hand-rolled pipelines that break on schema changes and updates.</p>
+                    <p data-translate="problem2-desc">Fragile, hand-rolled pipelines that break on schema changes and updates.</p>
                 </div>
                 <div class="problem-card">
                     <i class="fas fa-money-bill-wave"></i>
@@ -686,13 +883,13 @@
                     <ul class="feature-list">
                         <li><i class="fas fa-check-circle"></i> <strong data-translate="solution-feature1-title">Ship 60% Faster:</strong> <span data-translate="solution-feature1-desc">Pre-built, battle-tested connectors mean your team skips the boilerplate.</span></li>
                         <li><i class="fas fa-check-circle"></i> <strong data-translate="solution-feature2-title">Built for the Enterprise:</strong> <span data-translate="solution-feature2-desc">Security, logging, monitoring, and error handling baked into every module.</span></li>
-                        <li><i class="fas极 fa-check-circle"></i> <strong data-translate="solution-feature3-title">Grow at Your Pace:</strong> <span data-translate="solution-feature3-desc">Truly modular design. Start with Core 1.0, then seamlessly extend.</span></li>
+                        <li><i class="fas fa-check-circle"></i> <strong data-translate="solution-feature3-title">Grow at Your Pace:</strong> <span data-translate="solution-feature3-desc">Truly modular design. Start with Core 1.0, then seamlessly extend.</span></li>
                         <li><i class="fas fa-check-circle"></i> <strong data-translate="solution-feature4-title">License Once, Deploy Anywhere:</strong> <span data-translate="solution-feature4-desc">Perpetual license gives you freedom across your entire organization.</span></li>
                     </ul>
                     <a href="#pricing" class="primary-btn" data-translate="solution-pricing">See Pricing Plans</a>
                 </div>
                 <div class="solution-image">
-                    <img src="https://images.unsplash.com/photo-1573164574572-cb89e39749b4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80" alt="Executives discussing business issues">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="Automation Dashboard">
                 </div>
             </div>
         </div>
@@ -714,7 +911,7 @@
                 <div class="problem-card">
                     <i class="fas fa-cogs"></i>
                     <h3 data-translate="feature2-title">Intelligent Orchestration</h3>
-                    <p data-translate="feature2-desc">Built-in job manager handles async extraction, batching, and queueing automatically.</极>
+                    <p data-translate="feature2-desc">Built-in job manager handles async extraction, batching, and queueing automatically.</p>
                 </div>
                 <div class="problem-card">
                     <i class="fas fa-check-shield"></i>
@@ -723,7 +920,7 @@
                 </div>
                 <div class="problem-card">
                     <i class="fas fa-chart-line"></i>
-                    <h3 data-translate="极eature4-title">Observability Built-In</h3>
+                    <h3 data-translate="feature4-title">Observability Built-In</h3>
                     <p data-translate="feature4-desc">Get clean logs, metrics, and error tracking out-of-the-box without building dashboards.</p>
                 </div>
             </div>
@@ -740,7 +937,7 @@
             <div class="pricing-grid">
                 <div class="pricing-card">
                     <h3 data-translate="pricing-tier1">Starter</h3>
-                    <div class="price">$999</div>
+                    <div class="price">$999<span>/once</span></div>
                     <p data-translate="pricing-tier1-desc">DIY Engineers & Prototypes</p>
                     <ul class="pricing-features">
                         <li><i class="fas fa-check"></i> <span data-translate="pricing-feature1">Source code</span></li>
@@ -752,23 +949,23 @@
                 </div>
                 <div class="pricing-card">
                     <h3 data-translate="pricing-tier2">Growth</h3>
-                    <div class="price">$4,999</div>
+                    <div class="price">$4,999<span>/once</span></div>
                     <p data-translate="pricing-tier2-desc">Scaling SMBs & Teams</p>
                     <ul class="pricing-features">
-                        <li><i class="fas fa-check"></极> <span data-translate="pricing-feature1">Source极 code</span></li>
+                        <li><i class="fas fa-check"></i> <span data-translate="pricing-feature1">Source code</span></li>
                         <li><i class="fas fa-check"></i> <span data-translate="pricing-feature5">Extended documentation</span></li>
-                        <li><极 class="fas fa-check"></i> <span data-translate="pricing-feature6">Email support</span></li>
+                        <li><i class="fas fa-check"></i> <span data-translate="pricing-feature6">Email support</span></li>
                         <li><i class="fas fa-times"></i> <span data-translate="pricing-feature4">No consulting</span></li>
                     </ul>
                     <a href="#payment" class="primary-btn" data-translate="pricing-getstarted">Get Started</a>
                 </div>
                 <div class="pricing-card popular">
                     <h3 data-translate="pricing-tier3">Pro</h3>
-                    <div class="price">$9,999</div>
+                    <div class="price">$9,999<span>/once</span></div>
                     <p data-translate="pricing-tier3-desc">Mid-Market & Serious Projects</p>
                     <ul class="pricing-features">
                         <li><i class="fas fa-check"></i> <span data-translate="pricing-feature1">Source code</span></li>
-                        <li><i class="fas fa-check"></i> <span data-translate="pricing-feature7">Full documentation</span></li>
+                        <li><i class="fas fa-check"></极> <span data-translate="pricing-feature7">Full documentation</span></li>
                         <li><i class="fas fa-check"></i> <span data-translate="pricing-feature8">Priority support</span></li>
                         <li><i class="fas fa-check"></i> <span data-translate="pricing-feature9">2h consulting</span></li>
                     </ul>
@@ -776,13 +973,13 @@
                 </div>
                 <div class="pricing-card">
                     <h3 data-translate="pricing-tier4">Enterprise</h3>
-                    <div class="price">$24,999+</div>
-                    <p data-translate="pricing-tier4-desc">Large-Scale Deployment</p>
+                    <div class="price">$24,999<span>+/once</span></div>
+                    <p data-translate="pricing极-tier4-desc">Large-Scale Deployment</p>
                     <ul class="pricing-features">
                         <li><i class="fas fa-check"></i> <span data-translate="pricing-feature10">Full suite</span></li>
                         <li><i class="fas fa-check"></i> <span data-translate="pricing-feature11">Custom integration</span></li>
                         <li><i class="fas fa-check"></i> <span data-translate="pricing-feature12">Dedicated support</span></li>
-                        <li><i class="fas fa-check"></i> <span data-translate="pricing-feature13">Consulting package</span></li>
+                        <li><i class="fas fa-check"></i> <span data-translate="pricing-feature13">Consulting package</span></极>
                     </ul>
                     <a href="#contact" class="primary-btn" data-translate="pricing-contactsales">Contact Sales</a>
                 </div>
@@ -825,9 +1022,11 @@
     <!-- CTA Section -->
     <section class="cta-section" id="contact">
         <div class="container">
-            <h2 data-translate="cta-title">Ready to Stop Wasting Development Cycles?</h2>
-            <p data-translate="cta-subtitle">Your data is waiting. Let's connect it. Contact us today极 to schedule a demo or discuss which plan is right for your organization.</p>
-            <a href="#contact-details" class="secondary-btn" data-translate="cta-button">Contact Us Now</a>
+            <div class="cta-content">
+                <h2 data-translate="cta-title">Ready to Stop Wasting Development Cycles?</h2>
+                <p data-translate="cta-subtitle">Your data is waiting. Let's connect it. Contact us today to schedule a demo or discuss which plan is right for your organization.</p>
+                <a href="#contact-details" class="secondary-btn" data-translate="cta-button">Contact Us Now</a>
+            </div>
         </div>
     </section>
 
@@ -843,13 +1042,13 @@
                     <h3 data-translate="footer-product">Product</h3>
                     <ul>
                         <li><a href="#features" data-translate="nav-features">Features</a></li>
-                        <li><a href="#pricing极" data-translate="nav-pricing">Pricing</a></li>
+                        <li><a href="#pricing" data-translate="nav-pricing">Pricing</a></li>
                         <li><a href="#solution" data-translate="footer-howitworks">How It Works</a></li>
                         <li><a href="#payment" data-translate="nav-payment">Payment Options</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
-                    <h3 data-translate="footer-company">Company</极>
+                    <h3 data-translate="footer-company">Company</h3>
                     <ul>
                         <li><a href="#about" data-translate="footer-about">About Us</a></li>
                         <li><a href="#careers" data-translate="footer-careers">Careers</a></li>
@@ -918,10 +1117,10 @@
                 "solution-feature2-title": "Built for the Enterprise:",
                 "solution-feature2-desc": "Security, logging, monitoring, and error handling baked into every module.",
                 "solution-feature3-title": "Grow at Your Pace:",
-                "solution-feature3-desc": "Truly modular design. Start with Core 1.0, then seamlessly extend.",
+                "solution-fe极ture3-desc": "Truly modular design. Start with Core 1.0, then seamlessly extend.",
                 "solution-feature4-title": "License Once, Deploy Anywhere:",
                 "solution-feature4-desc": "Perpetual license gives you freedom across your entire organization.",
-                "极olution-pricing": "See Pricing Plans",
+                "solution-pricing": "See Pricing Plans",
                 
                 // Features section
                 "features-title": "Powerful Features, Simple Implementation",
@@ -942,11 +1141,11 @@
                 "pricing-tier1-desc": "DIY Engineers & Prototypes",
                 "pricing-tier2": "Growth",
                 "pricing-tier2-desc": "Scaling SMBs & Teams",
-                "pricing-tier3": "Pro",
+                "pricing-tier3": "极o",
                 "pricing-tier3-desc": "Mid-Market & Serious Projects",
                 "pricing-tier4": "Enterprise",
                 "pricing-tier4-desc": "Large-Scale Deployment",
-                "pricing-feature极": "Source code",
+                "pricing-feature1": "Source code",
                 "pricing-feature2": "Minimal documentation",
                 "pricing-feature3": "No support",
                 "pricing-feature4": "No consulting",
@@ -958,7 +1157,7 @@
                 "pricing-feature10": "Full suite",
                 "pricing-feature11": "Custom integration",
                 "pricing-feature12": "Dedicated support",
-                "pricing-feature13": "Consulting package",
+                "极ricing-feature13": "Consulting package",
                 "pricing-getstarted": "Get Started",
                 "pricing-contactsales": "Contact Sales",
                 
@@ -1005,7 +1204,7 @@
                 
                 // Problem section
                 "problem-title": "مشكلة التكامل تقتل زخمك",
-                "problem-subtitle": "لديك البيانات. لديك طموحات الذكاء الاصطناعي. ولكن ما الذي يعترض طريقك？",
+                "problem-subtitle": "لديك البيانات. لديك طموحات الذكاء الاصطناعي. ولكن ما الذي يعترض طريقك؟",
                 "problem1-title": "أسابيع ضائعة",
                 "problem1-desc": "هندسة موصلات مخصصة لواجهات برمجة التطبيقات وجداول Google والأنظمة القديمة.",
                 "problem2-title": "أخطاء مكلفة",
@@ -1016,19 +1215,19 @@
                 // Solution section
                 "solution-title": "الحل ليس المزيد من التعليمات البرمجية， بل نواة أفضل",
                 "solution-subtitle": "تقديم Core Suite من Gaiva&Aether - إطار عمل Modular AI ingestion مصمم للسرعة والموثوقية.",
-                "solution-features-title": "لماذا Core Suite？ سرعة الهندسة، مستوى المؤسسة.",
+                "solution-features-title": "لماذا Core Suite؟ سرعة الهندسة، مستوى المؤسسة.",
                 "solution-feature1-title": "شحن أسرع بنسبة 60٪:",
                 "solution-feature1-desc": "موصلات مجهزة مسبقًا ومجربة تعني أن فريقك يتخطى الأعمال التحضيرية.",
                 "solution-feature2-title": "مصمم للمؤسسات:",
                 "solution-feature2-desc": "الأمان والتسجيل والمراقبة ومعالجة الأخطاء مدمجة في كل وحدة.",
                 "solution-feature3-title": "النمو حسب وتيرتك:",
                 "solution-feature3-desc": "تصميم معياري حقًا. ابدأ بـ Core 1.0، ثم قم بالتمديد بسلاسة.",
-                "solution-feature4-title": "رخصة واحدة， نشر في أي مكان:",
+                "solution-feature4-title": "رخصة واحدة، نشر في أي مكان:",
                 "solution-feature4-desc": "تمنحك الرخصة الدائمة الحرية عبر مؤسستك بالكامل.",
                 "solution-pricing": "اطلع على خطط التسعير",
                 
                 // Features section
-                "features-title": "ميزات قوية， تنفيذ بسيط",
+                "features-title": "ميزات قوية، تنفيذ بسيط",
                 "features-subtitle": "يوفر Core Suite كل ما تحتاجه لاستيعاب البيانات seamlessly",
                 "feature1-title": "موصلات تعمل فقط",
                 "feature1-desc": "تتعامل الموصلات المضمنة مسبقًا لـ Google Workspace وواجهات برمجة التطبيقات REST والمزيد مع المصادقة والمشكلات نيابة عنك.",
@@ -1041,7 +1240,7 @@
                 
                 // Pricing section
                 "pricing-title": "أسعار بسيطة وشفافة",
-                "pricing-subtitle": "اختر الخطة التي تناسب طموحك. ادفع مرة واحدة ， واستخدم إلى الأبد.",
+                "pricing-subtitle": "اختر الخطة التي تناسب طموحك. ادفع مرة واحدة ، واستخدم إلى الأبد.",
                 "pricing-tier1": "المبتدئ",
                 "pricing-tier1-desc": "المهندسون والنماذج الأولية DIY",
                 "pricing-tier2": "النمو",
@@ -1055,14 +1254,14 @@
                 "pricing-feature3": "بدون دعم",
                 "pricing-feature4": "بدون استشارات",
                 "pricing-feature5": "وثائق موسعة",
-                "pricing-feature6": "دعم البريد الإلكتروني",
+                "pricing-feature极": "دعم البريد الإلكتروني",
                 "pricing-feature7": "الوثائق الكاملة",
                 "pricing-feature8": "دعم أولوية",
                 "pricing-feature9": "ساعتين من الاستشارات",
                 "pricing-feature10": "مجموعة كاملة",
-                "pricing-feature11": "تكامل مخصص",
+                "pricing-feature11": "极كامل مخصص",
                 "pricing-feature12": "دعم مخصص",
-                "pricing-fe极ture13": "حزمة استشارات",
+                "pricing-feature13": "حزمة استشارات",
                 "pricing-getstarted": "ابدأ الآن",
                 "pricing-contactsales": "اتصل بالمبيعات",
                 
@@ -1076,7 +1275,7 @@
                 "payment-creditcards-desc": "فيزا， ماستركارد， أميكس",
                 
                 // CTA section
-                "cta-title": "هل أنت مستعد للتوقف عن إهدار دورات التطوير？",
+                "cta-title": "هل أنت مستعد للتوقف عن إهدار دورات التطوير؟",
                 "cta-subtitle": "بياناتك في انتظارك. دعنا نربطها. اتصل بنا today لجدولة عرض توضيحي أو مناقشة الخطة المناسبة لمنظمتك.",
                 "cta-button": "اتصل بنا الآن",
                 
@@ -1104,7 +1303,7 @@
                 // Hero section
                 "hero-title": "Arrêtez de Construire des Pipelines d'Ingestion, Utilisez-les",
                 "hero-subtitle": "Le framework d'entreprise qui transforme le chaos des données en pipeline connecté et prêt pour l'IA en jours, pas en mois.",
-                "极ero-pricing": "Voir les Tarifs",
+                "hero-pricing": "Voir les Tarifs",
                 "hero-demo": "Planifier une Démo",
                 
                 // Problem section
@@ -1113,9 +1312,9 @@
                 "problem1-title": "Semaines Gâchées",
                 "problem1-desc": "Ingénierie de connecteurs personnalisés pour les API, Google Sheets et les systèmes hérités.",
                 "problem2-title": "Erreurs Coûteuses",
-                "problem2-desc": "Des pipelines fragiles et artisanaux qui cassent lors des changements de schéma et des mises à jour.",
+                "problem2-desc": "Des pipelines fragiles and artisanaux qui cassent lors des changements de schéma et des mises à jour.",
                 "problem3-title": "Coûts en Flèche",
-                "problem3-desc": "Le temps de développement s'étire and la maintenance mange votre budget.",
+                "problem3-desc": "Le temps de développement s'étire et la maintenance mange votre budget.",
                 
                 // Solution section
                 "solution-title": "La Solution n'est Pas Plus de Code, C'est un Meilleur Noyau",
@@ -1135,13 +1334,13 @@
                 "features-title": "Fonctionnalités Puissantes, Implémentation Simple",
                 "features-subtitle": "Core Suite fournit tout ce dont vous avez besoin pour une ingestion de données transparente",
                 "feature1-title": "Connecteurs Qui Fonctionnent Simplement",
-                "feature1-desc": "Les connecteurs pré-construits pour Google Workspace, les API REST et plus encore gèrent l'authentification and les particularités pour vous.",
+                "feature1-desc": "Les connecteurs pré-construits pour Google Workspace, les API REST et plus encore gèrent l'authentification et les particularités pour vous.",
                 "feature2-title": "Orchestration Intelligente",
                 "feature2-desc": "Le gestionnaire de travaux intégré gère automatiquement l'extraction asynchrone, le traitement par lots et la mise en file d'attente.",
                 "feature3-title": "Validation et Sécurité",
                 "feature3-desc": "Le validateur de configuration prévient les erreurs de déploiement et garantit que vos données circulent correctement.",
                 "feature4-title": "Observabilité Intégrée",
-                "feature4-desc": "Obtenez des journaux propres, des métriques et un suivi des erreurs prêts à l'emploi sans avoir à créer de tableaux de bord.",
+                "feature4-desc": "Obtenez des journaux propres, des métriques and un suivi des erreurs prêts à l'emploi sans avoir à créer de tableaux de bord.",
                 
                 // Pricing section
                 "pricing-title": "Tarification Simple et Transparente",
@@ -1151,7 +1350,7 @@
                 "pricing-tier2": "Croissance",
                 "pricing-tier2-desc": "PME et Équipes en Croissance",
                 "pricing-tier3": "Pro",
-                "pricing-tier3-desc": "Marché Moyen et Projets Sérieux",
+                "pricing-tier3-desc": "Marché Moyen and Projets Sérieux",
                 "pricing-tier4": "Entreprise",
                 "pricing-tier4-desc": "Déploiement à Grande Échelle",
                 "pricing-feature1": "Code source",
@@ -1172,7 +1371,7 @@
                 
                 // Payment section
                 "payment-title": "Options de Paiement Sécurisées",
-                "payment-subtitle": "Nous proposons plusieurs méthodes de paiement sécurisées pour votre commodité",
+                "payment-subtitle": "Nous proposons plusieurs méthodes de paiement sécurisées for votre commodité",
                 "payment-paypal": "Paiements numériques sécurisés",
                 "payment-stripe": "Traitement des cartes de crédit",
                 "payment-wise": "Transferts internationaux",
@@ -1186,7 +1385,7 @@
                 
                 // Footer
                 "footer-desc": "Le framework d'ingestion AI de qualité entreprise conçu pour la vitesse et la fiabilité.",
-                "footer-product": "Produ极",
+                "footer-product": "Produit",
                 "footer-howitworks": "Comment ça Marche",
                 "footer-company": "Entreprise",
                 "footer-about": "À Propos",
@@ -1261,7 +1460,7 @@
                 const targetElement = document.querySelector(targetId);
                 if(targetElement) {
                     window.scrollTo({
-                        top: targetElement.offsetTop - 80,
+                        top: targetElement.offsetTop - 100,
                         behavior: 'smooth'
                     });
                 }
@@ -1270,21 +1469,31 @@
         
         // Add a scroll event listener to change header appearance
         window.addEventListener('scroll', function() {
-            const header = document.querySelector极('header');
+            const header = document.querySelector('header');
             if (window.scrollY > 50) {
-                header.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
+                header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.12)';
             } else {
-                header.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.05)';
+                header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.08)';
             }
         });
 
         // Simple animation for payment methods
         document.querySelectorAll('.payment-method').forEach(method => {
             method.addEventListener('mouseenter', function() {
-                this.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.15)';
+                this.style.boxShadow = '0 15px 40px rgba(0, 0, 0, 0.15)';
             });
             method.addEventListener('mouseleave', function() {
-                this.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.08)';
+                this.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.08)';
+            });
+        });
+
+        // Animation for feature list items
+        document.querySelectorAll('.feature-list li').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateX(8px)';
+            });
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateX(0)';
             });
         });
     </script>
