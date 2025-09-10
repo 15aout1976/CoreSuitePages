@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Core Suite - AI Ingestion Framework | Gaiva&Aether</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #7e22ce;
+            --accent: #06b6d4;
+            --light: #f8fafc;
+            --dark: #0f172a;
+            --gray: #64748b;
+            --success: #10b981;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            color: var(--dark);
+            background-color: var(--light);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header & Navigation */
+        header {
+            background-color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .cta-button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .cta-button:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 160px 0 100px;
+            background: linear-gradient(120deg, #f0f9ff 0%, #e0f2fe 100%);
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            color: var(--gray);
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .primary-btn {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 2px solid var(--primary);
+        }
+        
+        .primary-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.15);
+        }
+        
+        .secondary-btn {
+            background-color: transparent;
+            color: var(--primary);
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 2px solid var(--primary);
+        }
+        
+        .secondary-btn:hover {
+            background-color: rgba(37, 99, 235, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        /* Problem Section */
+        .problem {
+            padding: 100px 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 20px;
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .problem-card {
+            background: linear-gradient(145deg, #f8fafc, #e2e8f0);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .problem-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .problem-card i {
+            font-size: 3rem;
+            color: #ef4444;
+            margin-bottom: 20px;
+        }
+        
+        .problem-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        /* Solution Section */
+        .solution {
+            padding: 100px 0;
+            background: linear-gradient(120deg, #f0f9ff 0%, #e0f2fe 100%);
+        }
+        
+        .solution-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            margin-top: 50px;
+        }
+        
+        .solution-text {
+            flex: 1;
+        }
+        
+        .solution-image {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .solution-image img {
+            max-width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-list {
+            list-style: none;
+            margin: 30px 0;
+        }
+        
+        .feature-list li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .feature-list i {
+            color: var(--success);
+            margin-right: 15px;
+            font-size: 1.2rem;
+            margin-top: 4px;
+        }
+        
+        /* Pricing Section */
+        .pricing {
+            padding: 100px 0;
+            background-color: white;
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .pricing-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 40px 30px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #e2e8f0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pricing-card.popular {
+            border: 2px solid var(--primary);
+            transform: scale(1.05);
+        }
+        
+        .pricing-card.popular::before {
+            content: "MOST POPULAR";
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--primary);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 5px 15px;
+            border-bottom-left-radius: 8px;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .pricing-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 20px 0;
+        }
+        
+        .pricing-features {
+            list-style: none;
+            margin: 25px 0;
+            text-align: left;
+        }
+        
+        .pricing-features li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .pricing-features i {
+            color: var(--success);
+            margin-right: 10px;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 0;
+            background: linear-gradient(120deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            max-width: 700px;
+            margin: 0 auto 40px;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #e2e8f0;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-column a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .solution-content {
+                flex-direction: column;
+            }
+            
+            .pricing-card.popular {
+                transform: scale(1);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Core<span>Suite</span></div>
+                <ul class="nav-links">
+                    <li><a href="#problem">The Problem</a></li>
+                    <li><a href="#solution">The Solution</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <button class="cta-button">Get Started</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Stop Building Ingestion Pipelines, Start Using Them</h1>
+            <p>The enterprise-grade framework that turns data chaos into a connected, AI-ready pipeline in days, not months.</p>
+            <div class="hero-buttons">
+                <a href="#pricing" class="primary-btn">View Pricing</a>
+                <a href="#demo" class="secondary-btn">Schedule a Demo</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem" id="problem">
+        <div class="container">
+            <div class="section-title">
+                <h2>The Integration Bottleneck is Killing Your Momentum</h2>
+                <p>You have the data. You have the AI ambitions. But what's in between?</p>
+            </div>
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <i class="fas fa-clock"></i>
+                    <h3>Wasted Weeks</h3>
+                    <p>Engineering custom connectors for APIs, Google Sheets, and legacy systems.</p>
+                </div>
+                <div class="problem-card">
+                    <i class="fas fa-bug"></i>
+                    <h3>Costly Errors</h3>
+                    <p>Fragile, hand-rolled pipelines that break on schema changes and updates.</p>
+                </div>
+                <div class="problem-card">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <h3>Ballooning Costs</h3>
+                    <p>Development time stretches on and maintenance eats your budget.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="solution" id="solution">
+        <div class="container">
+            <div class="section-title">
+                <h2>The Solution Isn't More Code, It's a Better Core</h2>
+                <p>Introducing Core Suite by Gaiva&Aether — a modular AI ingestion framework designed for velocity and reliability.</p>
+            </div>
+            <div class="solution-content">
+                <div class="solution-text">
+                    <h3>Why Core Suite? Engineer Velocity, Enterprise Grade.</h3>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check-circle"></i> <strong>Ship 60% Faster:</strong> Pre-built, battle-tested connectors mean your team skips the boilerplate.</li>
+                        <li><i class="fas fa-check-circle"></i> <strong>Built for the Enterprise:</strong> Security, logging, monitoring, and error handling baked into every module.</li>
+                        <li><i class="fas fa-check-circle"></i> <strong>Grow at Your Pace:</strong> Truly modular design. Start with Core 1.0, then seamlessly extend.</li>
+                        <li><i class="fas fa-check-circle"></i> <strong>License Once, Deploy Anywhere:</strong> Perpetual license gives you freedom across your entire organization.</li>
+                    </ul>
+                    <a href="#pricing" class="primary-btn">See Pricing Plans</a>
+                </div>
+                <div class="solution-image">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="Core Suite Architecture">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="problem" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Powerful Features, Simple Implementation</h2>
+                <p>Core Suite provides everything you need for seamless data ingestion</p>
+            </div>
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <i class="fas fa-plug"></i>
+                    <h3>Connectors That Just Work</h3>
+                    <p>Pre-built connectors for Google Workspace, REST APIs, and more handle authentication and quirks for you.</p>
+                </div>
+                <div class="problem-card">
+                    <i class="fas fa-cogs"></i>
+                    <h3>Intelligent Orchestration</h3>
+                    <p>Built-in job manager handles async extraction, batching, and queueing automatically.</p>
+                </div>
+                <div class="problem-card">
+                    <i class="fas fa-check-shield"></i>
+                    <h3>Validation & Safety</h3>
+                    <p>Config validator prevents deployment errors and ensures your data flows correctly.</p>
+                </div>
+                <div class="problem-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Observability Built-In</h3>
+                    <p>Get clean logs, metrics, and error tracking out-of-the-box without building dashboards.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="section-title">
+                <h2>Simple, Transparent Pricing</h2>
+                <p>Choose the plan that matches your ambition. Pay once, use forever.</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Starter</h3>
+                    <div class="price">$999</div>
+                    <p>DIY Engineers & Prototypes</p>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Source code</li>
+                        <li><i class="fas fa-check"></i> Minimal documentation</li>
+                        <li><i class="fas fa-times"></i> No support</li>
+                        <li><i class="fas fa-times"></i> No consulting</li>
+                    </ul>
+                    <a href="#" class="primary-btn">Get Started</a>
+                </div>
+                <div class="pricing-card">
+                    <h3>Growth</h3>
+                    <div class="price">$4,999</div>
+                    <p>Scaling SMBs & Teams</p>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Source code</li>
+                        <li><i class="fas fa-check"></i> Extended documentation</li>
+                        <li><i class="fas fa-check"></i> Email support</li>
+                        <li><i class="fas fa-times"></i> No consulting</li>
+                    </ul>
+                    <a href="#" class="primary-btn">Get Started</a>
+                </div>
+                <div class="pricing-card popular">
+                    <h3>Pro</h3>
+                    <div class="price">$9,999</div>
+                    <p>Mid-Market & Serious Projects</p>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Source code</li>
+                        <li><i class="fas fa-check"></i> Full documentation</li>
+                        <li><i class="fas fa-check"></i> Priority support</li>
+                        <li><i class="fas fa-check"></i> 2h consulting</li>
+                    </ul>
+                    <a href="#" class="primary-btn">Get Started</a>
+                </div>
+                <div class="pricing-card">
+                    <h3>Enterprise</h3>
+                    <div class="price">$24,999+</div>
+                    <p>Large-Scale Deployment</p>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Full suite</li>
+                        <li><i class="fas fa-check"></i> Custom integration</li>
+                        <li><i class="fas fa-check"></i> Dedicated support</li>
+                        <li><i class="fas fa-check"></i> Consulting package</li>
+                    </ul>
+                    <a href="#" class="primary-btn">Contact Sales</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="contact">
+        <div class="container">
+            <h2>Ready to Stop Wasting Development Cycles?</h2>
+            <p>Your data is waiting. Let's connect it. Contact us today to schedule a demo or discuss which plan is right for your organization.</p>
+            <a href="mailto:info@gaiva-aether.ai" class="secondary-btn">Contact Us Now</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Core Suite</h3>
+                    <p>The enterprise-grade AI ingestion framework designed for velocity and reliability.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Product</h3>
+                    <ul>
+                        <li><a href="#">Features</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">Use Cases</a></li>
+                        <li><a href="#">Documentation</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Our Team</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> info@gaiva-aether.ai</li>
+                        <li><i class="fas fa-globe"></i> www.gaiva-aether.ai</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Gaiva&Aether AI Architecture. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Add a scroll event listener to change header appearance
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.05)';
+            }
+        });
+    </script>
+</body>
+</html>
