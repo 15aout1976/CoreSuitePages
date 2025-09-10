@@ -42,10 +42,10 @@
             padding: 0 20px;
         }
         
-        /* Language Selector */
+        /* Language Selector - Fixed position */
         .language-selector {
             position: fixed;
-            top: 20px;
+            top: 90px;
             right: 20px;
             z-index: 1100;
             display: flex;
@@ -596,7 +596,7 @@
             }
 
             .language-selector {
-                top: 10px;
+                top: 70px;
                 right: 10px;
             }
 
@@ -608,7 +608,7 @@
     </style>
 </head>
 <body>
-    <!-- Language Selector -->
+    <!-- Language Selector - Fixed position -->
     <div class="language-selector">
         <button class="language-btn active" data-lang="en">EN</button>
         <button class="language-btn" data-lang="ar">AR</button>
@@ -1023,7 +1023,7 @@
                 "solution-feature3-title": "النمو حسب وتيرتك:",
                 "solution-feature3-desc": "تصميم معياري حقًا. ابدأ بـ Core 1.0، ثم قم بالتمديد بسلاسة.",
                 "solution-feature4-title": "رخصة واحدة، نشر في أي مكان:",
-                "solution-feature4-desc":تمنحك الرخصة الدائمة الحرية عبر مؤسستك بالكامل.",
+                "solution-feature4-desc": "تمنحك الرخصة الدائمة الحرية عبر مؤسستك بالكامل.",
                 "solution-pricing": "اطلع على خطط التسعير",
                 
                 // Features section
@@ -1247,16 +1247,6 @@
                     }
                 }
             });
-            
-            // Update the popular badge text
-            const popularBadge = document.querySelector('.pricing-card.popular::before');
-            if (popularBadge && lang !== 'en') {
-                if (lang === 'ar') {
-                    popularBadge.content = '"الأكثر شيوعًا"';
-                } else if (lang === 'fr') {
-                    popularBadge.content = '"LE PLUS POPULAIRE"';
-                }
-            }
         }
 
         // Simple smooth scrolling for navigation links
