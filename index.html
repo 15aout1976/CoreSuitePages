@@ -28,6 +28,11 @@
             color: var(--dark);
             background-color: var(--light);
             line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        body[dir="rtl"] {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         .container {
@@ -35,6 +40,39 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+        }
+        
+        /* Language Selector */
+        .language-selector {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1100;
+            display: flex;
+            background: white;
+            border-radius: 50px;
+            padding: 5px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        body[dir="rtl"] .language-selector {
+            right: auto;
+            left: 20px;
+        }
+        
+        .language-btn {
+            background: none;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .language-btn.active {
+            background-color: var(--primary);
+            color: white;
         }
         
         /* Header & Navigation */
@@ -73,6 +111,11 @@
         
         .nav-links li {
             margin-left: 30px;
+        }
+
+        body[dir="rtl"] .nav-links li {
+            margin-left: 0;
+            margin-right: 30px;
         }
         
         .nav-links a {
@@ -264,6 +307,11 @@
             font-size: 1.2rem;
             margin-top: 4px;
         }
+
+        body[dir="rtl"] .feature-list i {
+            margin-right: 0;
+            margin-left: 15px;
+        }
         
         /* Pricing Section */
         .pricing {
@@ -307,6 +355,13 @@
             padding: 5px 15px;
             border-bottom-left-radius: 8px;
         }
+
+        body[dir="rtl"] .pricing-card.popular::before {
+            right: auto;
+            left: 0;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 8px;
+        }
         
         .pricing-card:hover {
             transform: translateY(-10px);
@@ -331,6 +386,10 @@
             margin: 25px 0;
             text-align: left;
         }
+
+        body[dir="rtl"] .pricing-features {
+            text-align: right;
+        }
         
         .pricing-features li {
             margin-bottom: 12px;
@@ -341,6 +400,11 @@
         .pricing-features i {
             color: var(--success);
             margin-right: 10px;
+        }
+
+        body[dir="rtl"] .pricing-features i {
+            margin-right: 0;
+            margin-left: 10px;
         }
 
         /* Payment Section */
@@ -461,9 +525,19 @@
             margin-bottom: 10px;
         }
 
+        body[dir="rtl"] .contact-info {
+            direction: ltr;
+            justify-content: flex-end;
+        }
+
         .contact-info i {
             margin-right: 10px;
             width: 20px;
+        }
+
+        body[dir="rtl"] .contact-info i {
+            margin-right: 0;
+            margin-left: 10px;
         }
         
         .copyright {
@@ -520,24 +594,41 @@
                 width: 100%;
                 max-width: 300px;
             }
+
+            .language-selector {
+                top: 10px;
+                right: 10px;
+            }
+
+            body[dir="rtl"] .language-selector {
+                right: auto;
+                left: 10px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Language Selector -->
+    <div class="language-selector">
+        <button class="language-btn active" data-lang="en">EN</button>
+        <button class="language-btn" data-lang="ar">AR</button>
+        <button class="language-btn" data-lang="fr">FR</button>
+    </div>
+
     <!-- Header & Navigation -->
     <header>
         <div class="container">
             <nav>
                 <div class="logo">Core<span>Suite</span></div>
                 <ul class="nav-links">
-                    <li><a href="#problem">The Problem</a></li>
-                    <li><a href="#solution">The Solution</a></li>
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#pricing">Pricing</a></li>
-                    <li><a href="#payment">Payment</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#problem" data-translate="nav-problem">The Problem</a></li>
+                    <li><a href="#solution" data-translate="nav-solution">The Solution</a></li>
+                    <li><a href="#features" data-translate="nav-features">Features</a></li>
+                    <li><a href="#pricing" data-translate="nav-pricing">Pricing</a></li>
+                    <li><a href="#payment" data-translate="nav-payment">Payment</a></li>
+                    <li><a href="#contact" data-translate="nav-contact">Contact</a></li>
                 </ul>
-                <button class="cta-button">Get Started</button>
+                <button class="cta-button" data-translate="nav-getstarted">Get Started</button>
             </nav>
         </div>
     </header>
@@ -545,11 +636,11 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <h1>Stop Building Ingestion Pipelines, Start Using Them</h1>
-            <p>The enterprise-grade framework that turns data chaos into a connected, AI-ready pipeline in days, not months.</p>
+            <h1 data-translate="hero-title">Stop Building Ingestion Pipelines, Start Using Them</h1>
+            <p data-translate="hero-subtitle">The enterprise-grade framework that turns data chaos into a connected, AI-ready pipeline in days, not months.</p>
             <div class="hero-buttons">
-                <a href="#pricing" class="primary-btn">View Pricing</a>
-                <a href="#demo" class="secondary-btn">Schedule a Demo</a>
+                <a href="#pricing" class="primary-btn" data-translate="hero-pricing">View Pricing</a>
+                <a href="#demo" class="secondary-btn" data-translate="hero-demo">Schedule a Demo</a>
             </div>
         </div>
     </section>
@@ -558,24 +649,24 @@
     <section class="problem" id="problem">
         <div class="container">
             <div class="section-title">
-                <h2>The Integration Bottleneck is Killing Your Momentum</h2>
-                <p>You have the data. You have the AI ambitions. But what's in between?</p>
+                <h2 data-translate="problem-title">The Integration Bottleneck is Killing Your Momentum</h2>
+                <p data-translate="problem-subtitle">You have the data. You have the AI ambitions. But what's in between?</p>
             </div>
             <div class="problem-grid">
                 <div class="problem-card">
                     <i class="fas fa-clock"></i>
-                    <h3>Wasted Weeks</h3>
-                    <p>Engineering custom connectors for APIs, Google Sheets, and legacy systems.</p>
+                    <h3 data-translate="problem1-title">Wasted Weeks</h3>
+                    <p data-translate="problem1-desc">Engineering custom connectors for APIs, Google Sheets, and legacy systems.</p>
                 </div>
                 <div class="problem-card">
                     <i class="fas fa-bug"></i>
-                    <h3>Costly Errors</h3>
-                    <p>Fragile, hand-rolled pipelines that break on schema changes and updates.</p>
+                    <h3 data-translate="problem2-title">Costly Errors</h3>
+                    <p data-translate="problem2-desc">Fragile, hand-rolled pipelines that break on schema changes and updates.</p>
                 </div>
                 <div class="problem-card">
                     <i class="fas fa-money-bill-wave"></i>
-                    <h3>Ballooning Costs</h3>
-                    <p>Development time stretches on and maintenance eats your budget.</p>
+                    <h3 data-translate="problem3-title">Ballooning Costs</h3>
+                    <p data-translate="problem3-desc">Development time stretches on and maintenance eats your budget.</p>
                 </div>
             </div>
         </div>
@@ -585,19 +676,19 @@
     <section class="solution" id="solution">
         <div class="container">
             <div class="section-title">
-                <h2>The Solution Isn't More Code, It's a Better Core</h2>
-                <p>Introducing Core Suite by Gaiva&Aether — a modular AI ingestion framework designed for velocity and reliability.</p>
+                <h2 data-translate="solution-title">The Solution Isn't More Code, It's a Better Core</h2>
+                <p data-translate="solution-subtitle">Introducing Core Suite by Gaiva&Aether — a modular AI ingestion framework designed for velocity and reliability.</p>
             </div>
             <div class="solution-content">
                 <div class="solution-text">
-                    <h3>Why Core Suite? Engineer Velocity, Enterprise Grade.</h3>
+                    <h3 data-translate="solution-features-title">Why Core Suite? Engineer Velocity, Enterprise Grade.</h3>
                     <ul class="feature-list">
-                        <li><i class="fas fa-check-circle"></i> <strong>Ship 60% Faster:</strong> Pre-built, battle-tested connectors mean your team skips the boilerplate.</li>
-                        <li><i class="fas fa-check-circle"></i> <strong>Built for the Enterprise:</strong> Security, logging, monitoring, and error handling baked into every module.</li>
-                        <li><i class="fas fa-check-circle"></i> <strong>Grow at Your Pace:</strong> Truly modular design. Start with Core 1.0, then seamlessly extend.</li>
-                        <li><i class="fas fa-check-circle"></i> <strong>License Once, Deploy Anywhere:</strong> Perpetual license gives you freedom across your entire organization.</li>
+                        <li><i class="fas fa-check-circle"></i> <strong data-translate="solution-feature1-title">Ship 60% Faster:</strong> <span data-translate="solution-feature1-desc">Pre-built, battle-tested connectors mean your team skips the boilerplate.</span></li>
+                        <li><i class="fas fa-check-circle"></i> <strong data-translate="solution-feature2-title">Built for the Enterprise:</strong> <span data-translate="solution-feature2-desc">Security, logging, monitoring, and error handling baked into every module.</span></li>
+                        <li><i class="fas fa-check-circle"></i> <strong data-translate="solution-feature3-title">Grow at Your Pace:</strong> <span data-translate="solution-feature3-desc">Truly modular design. Start with Core 1.0, then seamlessly extend.</span></li>
+                        <li><i class="fas fa-check-circle"></i> <strong data-translate="solution-feature4-title">License Once, Deploy Anywhere:</strong> <span data-translate="solution-feature4-desc">Perpetual license gives you freedom across your entire organization.</span></li>
                     </ul>
-                    <a href="#pricing" class="primary-btn">See Pricing Plans</a>
+                    <a href="#pricing" class="primary-btn" data-translate="solution-pricing">See Pricing Plans</a>
                 </div>
                 <div class="solution-image">
                     <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="Core Suite Architecture">
@@ -610,29 +701,29 @@
     <section class="problem" id="features">
         <div class="container">
             <div class="section-title">
-                <h2>Powerful Features, Simple Implementation</h2>
-                <p>Core Suite provides everything you need for seamless data ingestion</p>
+                <h2 data-translate="features-title">Powerful Features, Simple Implementation</h2>
+                <p data-translate="features-subtitle">Core Suite provides everything you need for seamless data ingestion</p>
             </div>
             <div class="problem-grid">
                 <div class="problem-card">
                     <i class="fas fa-plug"></i>
-                    <h3>Connectors That Just Work</h3>
-                    <p>Pre-built connectors for Google Workspace, REST APIs, and more handle authentication and quirks for you.</p>
+                    <h3 data-translate="feature1-title">Connectors That Just Work</h3>
+                    <p data-translate="feature1-desc">Pre-built connectors for Google Workspace, REST APIs, and more handle authentication and quirks for you.</p>
                 </div>
                 <div class="problem-card">
                     <i class="fas fa-cogs"></i>
-                    <h3>Intelligent Orchestration</h3>
-                    <p>Built-in job manager handles async extraction, batching, and queueing automatically.</p>
+                    <h3 data-translate="feature2-title">Intelligent Orchestration</h3>
+                    <p data-translate="feature2-desc">Built-in job manager handles async extraction, batching, and queueing automatically.</p>
                 </div>
                 <div class="problem-card">
                     <i class="fas fa-check-shield"></i>
-                    <h3>Validation & Safety</h3>
-                    <p>Config validator prevents deployment errors and ensures your data flows correctly.</p>
+                    <h3 data-translate="feature3-title">Validation & Safety</h3>
+                    <p data-translate="feature3-desc">Config validator prevents deployment errors and ensures your data flows correctly.</p>
                 </div>
                 <div class="problem-card">
                     <i class="fas fa-chart-line"></i>
-                    <h3>Observability Built-In</h3>
-                    <p>Get clean logs, metrics, and error tracking out-of-the-box without building dashboards.</p>
+                    <h3 data-translate="feature4-title">Observability Built-In</h3>
+                    <p data-translate="feature4-desc">Get clean logs, metrics, and error tracking out-of-the-box without building dashboards.</p>
                 </div>
             </div>
         </div>
@@ -642,57 +733,57 @@
     <section class="pricing" id="pricing">
         <div class="container">
             <div class="section-title">
-                <h2>Simple, Transparent Pricing</h2>
-                <p>Choose the plan that matches your ambition. Pay once, use forever.</p>
+                <h2 data-translate="pricing-title">Simple, Transparent Pricing</h2>
+                <p data-translate="pricing-subtitle">Choose the plan that matches your ambition. Pay once, use forever.</p>
             </div>
             <div class="pricing-grid">
                 <div class="pricing-card">
-                    <h3>Starter</h3>
+                    <h3 data-translate="pricing-tier1">Starter</h3>
                     <div class="price">$999</div>
-                    <p>DIY Engineers & Prototypes</p>
+                    <p data-translate="pricing-tier1-desc">DIY Engineers & Prototypes</p>
                     <ul class="pricing-features">
-                        <li><i class="fas fa-check"></i> Source code</li>
-                        <li><i class="fas fa-check"></i> Minimal documentation</li>
-                        <li><i class="fas fa-times"></i> No support</li>
-                        <li><i class="fas fa-times"></i> No consulting</li>
+                        <li><i class="fas fa-check"></i> <span data-translate="pricing-feature1">Source code</span></li>
+                        <li><i class="fas fa-check"></i> <span data-translate="pricing-feature2">Minimal documentation</span></li>
+                        <li><i class="fas fa-times"></i> <span data-translate="pricing-feature3">No support</span></li>
+                        <li><i class="fas fa-times"></i> <span data-translate="pricing-feature4">No consulting</span></li>
                     </ul>
-                    <a href="#payment" class="primary-btn">Get Started</a>
+                    <a href="#payment" class="primary-btn" data-translate="pricing-getstarted">Get Started</a>
                 </div>
                 <div class="pricing-card">
-                    <h3>Growth</h3>
+                    <h3 data-translate="pricing-tier2">Growth</h3>
                     <div class="price">$4,999</div>
-                    <p>Scaling SMBs & Teams</p>
+                    <p data-translate="pricing-tier2-desc">Scaling SMBs & Teams</p>
                     <ul class="pricing-features">
-                        <li><i class="fas fa-check"></i> Source code</li>
-                        <li><i class="fas fa-check"></i> Extended documentation</li>
-                        <li><i class="fas fa-check"></i> Email support</li>
-                        <li><i class="fas fa-times"></i> No consulting</li>
+                        <li><i class="fas fa-check"></i> <span data-translate="pricing-feature1">Source code</span></li>
+                        <li><i class="fas fa-check"></i> <span data-translate="pricing-feature5">Extended documentation</span></li>
+                        <li><i class="fas fa-check"></i> <span data-translate="pricing-feature6">Email support</span></li>
+                        <li><i class="fas fa-times"></i> <span data-translate="pricing-feature4">No consulting</span></li>
                     </ul>
-                    <a href="#payment" class="primary-btn">Get Started</a>
+                    <a href="#payment" class="primary-btn" data-translate="pricing-getstarted">Get Started</a>
                 </div>
                 <div class="pricing-card popular">
-                    <h3>Pro</h3>
+                    <h3 data-translate="pricing-tier3">Pro</h3>
                     <div class="price">$9,999</div>
-                    <p>Mid-Market & Serious Projects</p>
+                    <p data-translate="pricing-tier3-desc">Mid-Market & Serious Projects</p>
                     <ul class="pricing-features">
-                        <li><i class="fas fa-check"></i> Source code</li>
-                        <li><i class="fas fa-check"></i> Full documentation</li>
-                        <li><i class="fas fa-check"></i> Priority support</li>
-                        <li><i class="fas fa-check"></i> 2h consulting</li>
+                        <li><i class="fas fa-check"></i> <span data-translate="pricing-feature1">Source code</span></li>
+                        <li><i class="fas fa-check"></i> <span data-translate="pricing-feature7">Full documentation</span></li>
+                        <li><i class="fas fa-check"></i> <span data-translate="pricing-feature8">Priority support</span></li>
+                        <li><i class="fas fa-check"></i> <span data-translate="pricing-feature9">2h consulting</span></li>
                     </ul>
-                    <a href="#payment" class="primary-btn">Get Started</a>
+                    <a href="#payment" class="primary-btn" data-translate="pricing-getstarted">Get Started</a>
                 </div>
                 <div class="pricing-card">
-                    <h3>Enterprise</h3>
+                    <h3 data-translate="pricing-tier4">Enterprise</h3>
                     <div class="price">$24,999+</div>
-                    <p>Large-Scale Deployment</p>
+                    <p data-translate="pricing-tier4-desc">Large-Scale Deployment</p>
                     <ul class="pricing-features">
-                        <li><i class="fas fa-check"></i> Full suite</li>
-                        <li><i class="fas fa-check"></i> Custom integration</li>
-                        <li><i class="fas fa-check"></i> Dedicated support</li>
-                        <li><i class="fas fa-check"></i> Consulting package</li>
+                        <li><i class="fas fa-check"></i> <span data-translate="pricing-feature10">Full suite</span></li>
+                        <li><i class="fas fa-check"></i> <span data-translate="pricing-feature11">Custom integration</span></li>
+                        <li><i class="fas fa-check"></i> <span data-translate="pricing-feature12">Dedicated support</span></li>
+                        <li><i class="fas fa-check"></i> <span data-translate="pricing-feature13">Consulting package</span></li>
                     </ul>
-                    <a href="#contact" class="primary-btn">Contact Sales</a>
+                    <a href="#contact" class="primary-btn" data-translate="pricing-contactsales">Contact Sales</a>
                 </div>
             </div>
         </div>
@@ -702,29 +793,29 @@
     <section class="payment-section" id="payment">
         <div class="container">
             <div class="section-title">
-                <h2>Secure Payment Options</h2>
-                <p>We offer multiple secure payment methods for your convenience</p>
+                <h2 data-translate="payment-title">Secure Payment Options</h2>
+                <p data-translate="payment-subtitle">We offer multiple secure payment methods for your convenience</p>
             </div>
             <div class="payment-methods">
                 <div class="payment-method paypal">
                     <i class="fab fa-cc-paypal"></i>
                     <h3>PayPal</h3>
-                    <p>Secure digital payments</p>
+                    <p data-translate="payment-paypal">Secure digital payments</p>
                 </div>
                 <div class="payment-method stripe">
                     <i class="fab fa-cc-stripe"></i>
                     <h3>Stripe</h3>
-                    <p>Credit card processing</p>
+                    <p data-translate="payment-stripe">Credit card processing</p>
                 </div>
                 <div class="payment-method wise">
                     <i class="fas fa-money-bill-transfer"></i>
                     <h3>Wise</h3>
-                    <p>International transfers</p>
+                    <p data-translate="payment-wise">International transfers</p>
                 </div>
                 <div class="payment-method credit-card">
                     <i class="fas fa-credit-card"></i>
-                    <h3>Credit Cards</h3>
-                    <p>Visa, MasterCard, Amex</p>
+                    <h3 data-translate="payment-creditcards">Credit Cards</h3>
+                    <p data-translate="payment-creditcards-desc">Visa, MasterCard, Amex</p>
                 </div>
             </div>
         </div>
@@ -733,9 +824,9 @@
     <!-- CTA Section -->
     <section class="cta-section" id="contact">
         <div class="container">
-            <h2>Ready to Stop Wasting Development Cycles?</h2>
-            <p>Your data is waiting. Let's connect it. Contact us today to schedule a demo or discuss which plan is right for your organization.</p>
-            <a href="#contact-details" class="secondary-btn">Contact Us Now</a>
+            <h2 data-translate="cta-title">Ready to Stop Wasting Development Cycles?</h2>
+            <p data-translate="cta-subtitle">Your data is waiting. Let's connect it. Contact us today to schedule a demo or discuss which plan is right for your organization.</p>
+            <a href="#contact-details" class="secondary-btn" data-translate="cta-button">Contact Us Now</a>
         </div>
     </section>
 
@@ -745,28 +836,28 @@
             <div class="footer-content">
                 <div class="footer-column">
                     <h3>Core Suite</h3>
-                    <p>The enterprise-grade AI ingestion framework designed for velocity and reliability.</p>
+                    <p data-translate="footer-desc">The enterprise-grade AI ingestion framework designed for velocity and reliability.</p>
                 </div>
                 <div class="footer-column">
-                    <h3>Product</h3>
+                    <h3 data-translate="footer-product">Product</h3>
                     <ul>
-                        <li><a href="#features">Features</a></li>
-                        <li><a href="#pricing">Pricing</a></li>
-                        <li><a href="#solution">How It Works</a></li>
-                        <li><a href="#payment">Payment Options</a></li>
+                        <li><a href="#features" data-translate="nav-features">Features</a></li>
+                        <li><a href="#pricing" data-translate="nav-pricing">Pricing</a></li>
+                        <li><a href="#solution" data-translate="footer-howitworks">How It Works</a></li>
+                        <li><a href="#payment" data-translate="nav-payment">Payment Options</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
-                    <h3>Company</h3>
+                    <h3 data-translate="footer-company">Company</h3>
                     <ul>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#careers">Careers</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                        <li><a href="#privacy">Privacy Policy</a></li>
+                        <li><a href="#about" data-translate="footer-about">About Us</a></li>
+                        <li><a href="#careers" data-translate="footer-careers">Careers</a></li>
+                        <li><a href="#contact" data-translate="nav-contact">Contact</a></li>
+                        <li><a href="#privacy" data-translate="footer-privacy">Privacy Policy</a></li>
                     </ul>
                 </div>
                 <div class="footer-column" id="contact-details">
-                    <h3>Contact Info</h3>
+                    <h3 data-translate="footer-contact">Contact Info</h3>
                     <div class="contact-info">
                         <i class="fas fa-envelope"></i>
                         <span>info@gaiva-aether.ai</span>
@@ -783,12 +874,391 @@
             </div>
             <div class="copyright">
                 <p>&copy; 2023 Gaiva&Aether AI Architecture. All rights reserved.</p>
-                <p>Designed by Mourad Soltani</p>
+                <p data-translate="footer-designed">Designed by Mourad Soltani</p>
             </div>
         </div>
     </footer>
 
     <script>
+        // Language translations
+        const translations = {
+            en: {
+                // Navigation
+                "nav-problem": "The Problem",
+                "nav-solution": "The Solution",
+                "nav-features": "Features",
+                "nav-pricing": "Pricing",
+                "nav-payment": "Payment",
+                "nav-contact": "Contact",
+                "nav-getstarted": "Get Started",
+                
+                // Hero section
+                "hero-title": "Stop Building Ingestion Pipelines, Start Using Them",
+                "hero-subtitle": "The enterprise-grade framework that turns data chaos into a connected, AI-ready pipeline in days, not months.",
+                "hero-pricing": "View Pricing",
+                "hero-demo": "Schedule a Demo",
+                
+                // Problem section
+                "problem-title": "The Integration Bottleneck is Killing Your Momentum",
+                "problem-subtitle": "You have the data. You have the AI ambitions. But what's in between?",
+                "problem1-title": "Wasted Weeks",
+                "problem1-desc": "Engineering custom connectors for APIs, Google Sheets, and legacy systems.",
+                "problem2-title": "Costly Errors",
+                "problem2-desc": "Fragile, hand-rolled pipelines that break on schema changes and updates.",
+                "problem3-title": "Ballooning Costs",
+                "problem3-desc": "Development time stretches on and maintenance eats your budget.",
+                
+                // Solution section
+                "solution-title": "The Solution Isn't More Code, It's a Better Core",
+                "solution-subtitle": "Introducing Core Suite by Gaiva&Aether — a modular AI ingestion framework designed for velocity and reliability.",
+                "solution-features-title": "Why Core Suite? Engineer Velocity, Enterprise Grade.",
+                "solution-feature1-title": "Ship 60% Faster:",
+                "solution-feature1-desc": "Pre-built, battle-tested connectors mean your team skips the boilerplate.",
+                "solution-feature2-title": "Built for the Enterprise:",
+                "solution-feature2-desc": "Security, logging, monitoring, and error handling baked into every module.",
+                "solution-feature3-title": "Grow at Your Pace:",
+                "solution-feature3-desc": "Truly modular design. Start with Core 1.0, then seamlessly extend.",
+                "solution-feature4-title": "License Once, Deploy Anywhere:",
+                "solution-feature4-desc": "Perpetual license gives you freedom across your entire organization.",
+                "solution-pricing": "See Pricing Plans",
+                
+                // Features section
+                "features-title": "Powerful Features, Simple Implementation",
+                "features-subtitle": "Core Suite provides everything you need for seamless data ingestion",
+                "feature1-title": "Connectors That Just Work",
+                "feature1-desc": "Pre-built connectors for Google Workspace, REST APIs, and more handle authentication and quirks for you.",
+                "feature2-title": "Intelligent Orchestration",
+                "feature2-desc": "Built-in job manager handles async extraction, batching, and queueing automatically.",
+                "feature3-title": "Validation & Safety",
+                "feature3-desc": "Config validator prevents deployment errors and ensures your data flows correctly.",
+                "feature4-title": "Observability Built-In",
+                "feature4-desc": "Get clean logs, metrics, and error tracking out-of-the-box without building dashboards.",
+                
+                // Pricing section
+                "pricing-title": "Simple, Transparent Pricing",
+                "pricing-subtitle": "Choose the plan that matches your ambition. Pay once, use forever.",
+                "pricing-tier1": "Starter",
+                "pricing-tier1-desc": "DIY Engineers & Prototypes",
+                "pricing-tier2": "Growth",
+                "pricing-tier2-desc": "Scaling SMBs & Teams",
+                "pricing-tier3": "Pro",
+                "pricing-tier3-desc": "Mid-Market & Serious Projects",
+                "pricing-tier4": "Enterprise",
+                "pricing-tier4-desc": "Large-Scale Deployment",
+                "pricing-feature1": "Source code",
+                "pricing-feature2": "Minimal documentation",
+                "pricing-feature3": "No support",
+                "pricing-feature4": "No consulting",
+                "pricing-feature5": "Extended documentation",
+                "pricing-feature6": "Email support",
+                "pricing-feature7": "Full documentation",
+                "pricing-feature8": "Priority support",
+                "pricing-feature9": "2h consulting",
+                "pricing-feature10": "Full suite",
+                "pricing-feature11": "Custom integration",
+                "pricing-feature12": "Dedicated support",
+                "pricing-feature13": "Consulting package",
+                "pricing-getstarted": "Get Started",
+                "pricing-contactsales": "Contact Sales",
+                
+                // Payment section
+                "payment-title": "Secure Payment Options",
+                "payment-subtitle": "We offer multiple secure payment methods for your convenience",
+                "payment-paypal": "Secure digital payments",
+                "payment-stripe": "Credit card processing",
+                "payment-wise": "International transfers",
+                "payment-creditcards": "Credit Cards",
+                "payment-creditcards-desc": "Visa, MasterCard, Amex",
+                
+                // CTA section
+                "cta-title": "Ready to Stop Wasting Development Cycles?",
+                "cta-subtitle": "Your data is waiting. Let's connect it. Contact us today to schedule a demo or discuss which plan is right for your organization.",
+                "cta-button": "Contact Us Now",
+                
+                // Footer
+                "footer-desc": "The enterprise-grade AI ingestion framework designed for velocity and reliability.",
+                "footer-product": "Product",
+                "footer-howitworks": "How It Works",
+                "footer-company": "Company",
+                "footer-about": "About Us",
+                "footer-careers": "Careers",
+                "footer-privacy": "Privacy Policy",
+                "footer-contact": "Contact Info",
+                "footer-designed": "Designed by Mourad Soltani"
+            },
+            ar: {
+                // Navigation
+                "nav-problem": "المشكلة",
+                "nav-solution": "الحل",
+                "nav-features": "الميزات",
+                "nav-pricing": "التسعير",
+                "nav-payment": "الدفع",
+                "nav-contact": "اتصل بنا",
+                "nav-getstarted": "ابدأ الآن",
+                
+                // Hero section
+                "hero-title": "توقف عن بناء خطوط التغذية، ابدأ في استخدامها",
+                "hero-subtitle": "الإطار المؤسسي الذي يحول فوضى البيانات إلى خطوط أنابيب جاهزة للذكاء الاصطناعي في أيام وليس أشهر.",
+                "hero-pricing": "عرض الأسعار",
+                "hero-demo": "جدولة عرض توضيحي",
+                
+                // Problem section
+                "problem-title": "مشكلة التكامل تقتل زخمك",
+                "problem-subtitle": "لديك البيانات. لديك طموحات الذكاء الاصطناعي. ولكن ما الذي يعترض طريقك؟",
+                "problem1-title": "أسابيع ضائعة",
+                "problem1-desc": "هندسة موصلات مخصصة لواجهات برمجة التطبيقات وجداول Google والأنظمة القديمة.",
+                "problem2-title": "أخطاء مكلفة",
+                "problem2-desc": "خطوط أنابيب هشة ومعرضة للكسر عند تغيير أو تحديث الهيكل.",
+                "problem3-title": "تكاليف متصاعدة",
+                "problem3-desc": "يمتد وقت التطوير وتأكل الصيانة ميزانيتك.",
+                
+                // Solution section
+                "solution-title": "الحل ليس المزيد من التعليمات البرمجية، بل نواة أفضل",
+                "solution-subtitle": "تقديم Core Suite من Gaiva&Aether - إطار عمل Modular AI ingestion مصمم للسرعة والموثوقية.",
+                "solution-features-title": "لماذا Core Suite؟ سرعة الهندسة، مستوى المؤسسة.",
+                "solution-feature1-title": "شحن أسرع بنسبة 60٪:",
+                "solution-feature1-desc": "موصلات مجهزة مسبقًا ومجربة تعني أن فريقك يتخطى الأعمال التحضيرية.",
+                "solution-feature2-title": "مصمم للمؤسسات:",
+                "solution-feature2-desc": "الأمان والتسجيل والمراقبة ومعالجة الأخطاء مدمجة في كل وحدة.",
+                "solution-feature3-title": "النمو حسب وتيرتك:",
+                "solution-feature3-desc": "تصميم معياري حقًا. ابدأ بـ Core 1.0، ثم قم بالتمديد بسلاسة.",
+                "solution-feature4-title": "رخصة واحدة، نشر في أي مكان:",
+                "solution-feature4-desc":تمنحك الرخصة الدائمة الحرية عبر مؤسستك بالكامل.",
+                "solution-pricing": "اطلع على خطط التسعير",
+                
+                // Features section
+                "features-title": "ميزات قوية، تنفيذ بسيط",
+                "features-subtitle": "يوفر Core Suite كل ما تحتاجه لاستيعاب البيانات seamlessly",
+                "feature1-title": "موصلات تعمل فقط",
+                "feature1-desc": "تتعامل الموصلات المضمنة مسبقًا لـ Google Workspace وواجهات برمجة التطبيقات REST والمزيد مع المصادقة والمشكلات نيابة عنك.",
+                "feature2-title": "أوركسترا ذكية",
+                "feature2-desc": "يدير مدير الوظائف المدمج الاستخراج غير المتزامن والتجميع والانتظار في قائمة الانتظار تلقائيًا.",
+                "feature3-title": "التحقق والسلامة",
+                "feature3-desc": "يمنع مدقق التكوين أخطاء النشر ويضمن تدفق بياناتك بشكل صحيح.",
+                "feature4-title": "إمكانية المراقبة المضمنة",
+                "feature4-desc": "احصل على سجلات ونقاط قياس وتتبع أخطاء نظيفة out-of-the-box دون إنشاء لوحات معلومات.",
+                
+                // Pricing section
+                "pricing-title": "أسعار بسيطة وشفافة",
+                "pricing-subtitle": "اختر الخطة التي تناسب طموحك. ادفع مرة واحدة ، واستخدم إلى الأبد.",
+                "pricing-tier1": "المبتدئ",
+                "pricing-tier1-desc": "المهندسون والنماذج الأولية DIY",
+                "pricing-tier2": "النمو",
+                "pricing-tier2-desc": "توسيع نطاق الشركات الصغيرة والمتوسطة والفرق",
+                "pricing-tier3": "المحترف",
+                "pricing-tier3-desc": "مشاريع السوق المتوسطة والجادة",
+                "pricing-tier4": "المؤسسة",
+                "pricing-tier4-desc": "النشر على نطاق واسع",
+                "pricing-feature1": "الكود المصدري",
+                "pricing-feature2": "الحد الأدنى من الوثائق",
+                "pricing-feature3": "بدون دعم",
+                "pricing-feature4": "بدون استشارات",
+                "pricing-feature5": "وثائق موسعة",
+                "pricing-feature6": "دعم البريد الإلكتروني",
+                "pricing-feature7": "الوثائق الكاملة",
+                "pricing-feature8": "دعم أولوية",
+                "pricing-feature9": "ساعتين من الاستشارات",
+                "pricing-feature10": "مجموعة كاملة",
+                "pricing-feature11": "تكامل مخصص",
+                "pricing-feature12": "دعم مخصص",
+                "pricing-feature13": "حزمة استشارات",
+                "pricing-getstarted": "ابدأ الآن",
+                "pricing-contactsales": "اتصل بالمبيعات",
+                
+                // Payment section
+                "payment-title": "خيارات الدفع الآمن",
+                "payment-subtitle": "نحن نقدم多种 طرق دفع آمنة لراحتك",
+                "payment-paypal": "مدفوعات رقمية آمنة",
+                "payment-stripe": "معالجة بطاقات الائتمان",
+                "payment-wise": "التحويلات الدولية",
+                "payment-creditcards": "بطاقات الائتمان",
+                "payment-creditcards-desc": "فيزا، ماستركارد، أميكس",
+                
+                // CTA section
+                "cta-title": "هل أنت مستعد للتوقف عن إهدار دورات التطوير؟",
+                "cta-subtitle": "بياناتك في انتظارك. دعنا نربطها. اتصل بنا today لجدولة عرض توضيحي أو مناقشة الخطة المناسبة لمنظمتك.",
+                "cta-button": "اتصل بنا الآن",
+                
+                // Footer
+                "footer-desc": "إطار عمل Modular AI ingestion المصمم للمؤسسات للسرعة والموثوقية.",
+                "footer-product": "المنتج",
+                "footer-howitworks": "كيف يعمل",
+                "footer-company": "الشركة",
+                "footer-about": "من نحن",
+                "footer-careers": "الوظائف",
+                "footer-privacy": "سياسة الخصوصية",
+                "footer-contact": "معلومات الاتصال",
+                "footer-designed": "صممه مراد سلطاني"
+            },
+            fr: {
+                // Navigation
+                "nav-problem": "Le Problème",
+                "nav-solution": "La Solution",
+                "nav-features": "Fonctionnalités",
+                "nav-pricing": "Tarification",
+                "nav-payment": "Paiement",
+                "nav-contact": "Contact",
+                "nav-getstarted": "Commencer",
+                
+                // Hero section
+                "hero-title": "Arrêtez de Construire des Pipelines d'Ingestion, Utilisez-les",
+                "hero-subtitle": "Le framework d'entreprise qui transforme le chaos des données en pipeline connecté et prêt pour l'IA en jours, pas en mois.",
+                "hero-pricing": "Voir les Tarifs",
+                "hero-demo": "Planifier une Démo",
+                
+                // Problem section
+                "problem-title": "Le Goulot d'Étranglement de l'Intégration Tue Votre Élan",
+                "problem-subtitle": "Vous avez les données. Vous avez les ambitions d'IA. Mais qu'est-ce qui se trouve entre les deux?",
+                "problem1-title": "Semaines Gâchées",
+                "problem1-desc": "Ingénierie de connecteurs personnalisés pour les API, Google Sheets et les systèmes hérités.",
+                "problem2-title": "Erreurs Coûteuses",
+                "problem2-desc": "Des pipelines fragiles et artisanaux qui cassent lors des changements de schéma et des mises à jour.",
+                "problem3-title": "Coûts en Flèche",
+                "problem3-desc": "Le temps de développement s'étire et la maintenance mange votre budget.",
+                
+                // Solution section
+                "solution-title": "La Solution n'est Pas Plus de Code, C'est un Meilleur Noyau",
+                "solution-subtitle": "Présentation de Core Suite par Gaiva&Aether — un framework d'ingestion AI modulaire conçu pour la vitesse et la fiabilité.",
+                "solution-features-title": "Pourquoi Core Suite? Vitesse d'Ingénierie, Qualité Entreprise.",
+                "solution-feature1-title": "Livrez 60% Plus Vite:",
+                "solution-feature1-desc": "Des connecteurs pré-construits et éprouvés signifient que votre équipe saute les préparatifs.",
+                "solution-feature2-title": "Conçu pour l'Entreprise:",
+                "solution-feature2-desc": "Sécurité, journalisation, surveillance et gestion des erreurs intégrées dans chaque module.",
+                "solution-feature3-title": "Grandissez à Votre Rythme:",
+                "solution-feature3-desc": "Conception véritablement modulaire. Commencez avec Core 1.0, puis étendez-vous de manière transparente.",
+                "solution-feature4-title": "Licence Unique, Déploiement Partout:",
+                "solution-feature4-desc": "La licence perpétuelle vous donne la liberté dans toute votre organisation.",
+                "solution-pricing": "Voir les Plans Tarifaires",
+                
+                // Features section
+                "features-title": "Fonctionnalités Puissantes, Implémentation Simple",
+                "features-subtitle": "Core Suite fournit tout ce dont vous avez besoin pour une ingestion de données transparente",
+                "feature1-title": "Connecteurs Qui Fonctionnent Simplement",
+                "feature1-desc": "Les connecteurs pré-construits pour Google Workspace, les API REST et plus encore gèrent l'authentification et les particularités pour vous.",
+                "feature2-title": "Orchestration Intelligente",
+                "feature2-desc": "Le gestionnaire de travaux intégré gère automatiquement l'extraction asynchrone, le traitement par lots et la mise en file d'attente.",
+                "feature3-title": "Validation et Sécurité",
+                "feature3-desc": "Le validateur de configuration prévient les erreurs de déploiement et garantit que vos données circulent correctement.",
+                "feature4-title": "Observabilité Intégrée",
+                "feature4-desc": "Obtenez des journaux propres, des métriques et un suivi des erreurs prêts à l'emploi sans avoir à créer de tableaux de bord.",
+                
+                // Pricing section
+                "pricing-title": "Tarification Simple et Transparente",
+                "pricing-subtitle": "Choisissez le plan qui correspond à votre ambition. Payez une fois, utilisez pour toujours.",
+                "pricing-tier1": "Starter",
+                "pricing-tier1-desc": "Ingénieurs DIY & Prototypes",
+                "pricing-tier2": "Croissance",
+                "pricing-tier2-desc": "PME et Équipes en Croissance",
+                "pricing-tier3": "Pro",
+                "pricing-tier3-desc": "Marché Moyen et Projets Sérieux",
+                "pricing-tier4": "Entreprise",
+                "pricing-tier4-desc": "Déploiement à Grande Échelle",
+                "pricing-feature1": "Code source",
+                "pricing-feature2": "Documentation minimale",
+                "pricing-feature3": "Aucun support",
+                "pricing-feature4": "Aucune consultation",
+                "pricing-feature5": "Documentation étendue",
+                "pricing-feature6": "Support email",
+                "pricing-feature7": "Documentation complète",
+                "pricing-feature8": "Support prioritaire",
+                "pricing-feature9": "2h de consultation",
+                "pricing-feature10": "Suite complète",
+                "pricing-feature11": "Intégration personnalisée",
+                "pricing-feature12": "Support dédié",
+                "pricing-feature13": "Forfait de consultation",
+                "pricing-getstarted": "Commencer",
+                "pricing-contactsales": "Contacter les Ventes",
+                
+                // Payment section
+                "payment-title": "Options de Paiement Sécurisées",
+                "payment-subtitle": "Nous proposons plusieurs méthodes de paiement sécurisées pour votre commodité",
+                "payment-paypal": "Paiements numériques sécurisés",
+                "payment-stripe": "Traitement des cartes de crédit",
+                "payment-wise": "Transferts internationaux",
+                "payment-creditcards": "Cartes de Crédit",
+                "payment-creditcards-desc": "Visa, MasterCard, Amex",
+                
+                // CTA section
+                "cta-title": "Prêt à Arrêter de Gaspiller des Cycles de Développement?",
+                "cta-subtitle": "Vos données vous attendent. Connectons-les. Contactez-nous aujourd'hui pour planifier une démo ou discuter du plan qui convient à votre organisation.",
+                "cta-button": "Contactez-Nous Maintenant",
+                
+                // Footer
+                "footer-desc": "Le framework d'ingestion AI de qualité entreprise conçu pour la vitesse et la fiabilité.",
+                "footer-product": "Produit",
+                "footer-howitworks": "Comment ça Marche",
+                "footer-company": "Entreprise",
+                "footer-about": "À Propos",
+                "footer-careers": "Carrières",
+                "footer-privacy": "Politique de Confidentialité",
+                "footer-contact": "Coordonnées",
+                "footer-designed": "Conçu par Mourad Soltani"
+            }
+        };
+
+        // Language switching functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const langButtons = document.querySelectorAll('.language-btn');
+            
+            langButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const lang = this.getAttribute('data-lang');
+                    
+                    // Update active button
+                    langButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Update page content
+                    updateContent(lang);
+                    
+                    // Update direction for RTL languages
+                    if (lang === 'ar') {
+                        document.body.setAttribute('dir', 'rtl');
+                    } else {
+                        document.body.removeAttribute('dir');
+                    }
+                    
+                    // Store language preference
+                    localStorage.setItem('preferredLang', lang);
+                });
+            });
+            
+            // Check for stored language preference
+            const preferredLang = localStorage.getItem('preferredLang');
+            if (preferredLang) {
+                const button = document.querySelector(`.language-btn[data-lang="${preferredLang}"]`);
+                if (button) {
+                    button.click();
+                }
+            }
+        });
+        
+        function updateContent(lang) {
+            // Get all elements with data-translate attribute
+            const elements = document.querySelectorAll('[data-translate]');
+            
+            elements.forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang] && translations[lang][key]) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        element.value = translations[lang][key];
+                    } else {
+                        element.textContent = translations[lang][key];
+                    }
+                }
+            });
+            
+            // Update the popular badge text
+            const popularBadge = document.querySelector('.pricing-card.popular::before');
+            if (popularBadge && lang !== 'en') {
+                if (lang === 'ar') {
+                    popularBadge.content = '"الأكثر شيوعًا"';
+                } else if (lang === 'fr') {
+                    popularBadge.content = '"LE PLUS POPULAIRE"';
+                }
+            }
+        }
+
         // Simple smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
