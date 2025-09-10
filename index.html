@@ -342,6 +342,60 @@
             color: var(--success);
             margin-right: 10px;
         }
+
+        /* Payment Section */
+        .payment-section {
+            padding: 80px 0;
+            background: linear-gradient(120deg, #f0f9ff 0%, #e0f2fe 100%);
+            text-align: center;
+        }
+
+        .payment-methods {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .payment-method {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            width: 200px;
+            transition: transform 0.3s;
+        }
+
+        .payment-method:hover {
+            transform: translateY(-5px);
+        }
+
+        .payment-method i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .payment-method.paypal i {
+            color: #003087;
+        }
+
+        .payment-method.stripe i {
+            color: #635bff;
+        }
+
+        .payment-method.wise i {
+            color: #9fe870;
+            background: linear-gradient(135deg, #9fe870 0%, #00b2ff 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .payment-method.credit-card i {
+            color: #ff6b6b;
+        }
         
         /* CTA Section */
         .cta-section {
@@ -400,6 +454,17 @@
         .footer-column a:hover {
             color: white;
         }
+
+        .contact-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .contact-info i {
+            margin-right: 10px;
+            width: 20px;
+        }
         
         .copyright {
             text-align: center;
@@ -445,6 +510,16 @@
             .section-title h2 {
                 font-size: 2rem;
             }
+
+            .payment-methods {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .payment-method {
+                width: 100%;
+                max-width: 300px;
+            }
         }
     </style>
 </head>
@@ -459,6 +534,7 @@
                     <li><a href="#solution">The Solution</a></li>
                     <li><a href="#features">Features</a></li>
                     <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#payment">Payment</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
                 <button class="cta-button">Get Started</button>
@@ -580,7 +656,7 @@
                         <li><i class="fas fa-times"></i> No support</li>
                         <li><i class="fas fa-times"></i> No consulting</li>
                     </ul>
-                    <a href="#" class="primary-btn">Get Started</a>
+                    <a href="#payment" class="primary-btn">Get Started</a>
                 </div>
                 <div class="pricing-card">
                     <h3>Growth</h3>
@@ -592,7 +668,7 @@
                         <li><i class="fas fa-check"></i> Email support</li>
                         <li><i class="fas fa-times"></i> No consulting</li>
                     </ul>
-                    <a href="#" class="primary-btn">Get Started</a>
+                    <a href="#payment" class="primary-btn">Get Started</a>
                 </div>
                 <div class="pricing-card popular">
                     <h3>Pro</h3>
@@ -604,7 +680,7 @@
                         <li><i class="fas fa-check"></i> Priority support</li>
                         <li><i class="fas fa-check"></i> 2h consulting</li>
                     </ul>
-                    <a href="#" class="primary-btn">Get Started</a>
+                    <a href="#payment" class="primary-btn">Get Started</a>
                 </div>
                 <div class="pricing-card">
                     <h3>Enterprise</h3>
@@ -616,7 +692,39 @@
                         <li><i class="fas fa-check"></i> Dedicated support</li>
                         <li><i class="fas fa-check"></i> Consulting package</li>
                     </ul>
-                    <a href="#" class="primary-btn">Contact Sales</a>
+                    <a href="#contact" class="primary-btn">Contact Sales</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Section -->
+    <section class="payment-section" id="payment">
+        <div class="container">
+            <div class="section-title">
+                <h2>Secure Payment Options</h2>
+                <p>We offer multiple secure payment methods for your convenience</p>
+            </div>
+            <div class="payment-methods">
+                <div class="payment-method paypal">
+                    <i class="fab fa-cc-paypal"></i>
+                    <h3>PayPal</h3>
+                    <p>Secure digital payments</p>
+                </div>
+                <div class="payment-method stripe">
+                    <i class="fab fa-cc-stripe"></i>
+                    <h3>Stripe</h3>
+                    <p>Credit card processing</p>
+                </div>
+                <div class="payment-method wise">
+                    <i class="fas fa-money-bill-transfer"></i>
+                    <h3>Wise</h3>
+                    <p>International transfers</p>
+                </div>
+                <div class="payment-method credit-card">
+                    <i class="fas fa-credit-card"></i>
+                    <h3>Credit Cards</h3>
+                    <p>Visa, MasterCard, Amex</p>
                 </div>
             </div>
         </div>
@@ -627,7 +735,7 @@
         <div class="container">
             <h2>Ready to Stop Wasting Development Cycles?</h2>
             <p>Your data is waiting. Let's connect it. Contact us today to schedule a demo or discuss which plan is right for your organization.</p>
-            <a href="mailto:info@gaiva-aether.ai" class="secondary-btn">Contact Us Now</a>
+            <a href="#contact-details" class="secondary-btn">Contact Us Now</a>
         </div>
     </section>
 
@@ -642,31 +750,40 @@
                 <div class="footer-column">
                     <h3>Product</h3>
                     <ul>
-                        <li><a href="#">Features</a></li>
-                        <li><a href="#">Pricing</a></li>
-                        <li><a href="#">Use Cases</a></li>
-                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#solution">How It Works</a></li>
+                        <li><a href="#payment">Payment Options</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h3>Company</h3>
                     <ul>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Our Team</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#careers">Careers</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#privacy">Privacy Policy</a></li>
                     </ul>
                 </div>
-                <div class="footer-column">
+                <div class="footer-column" id="contact-details">
                     <h3>Contact Info</h3>
-                    <ul>
-                        <li><i class="fas fa-envelope"></i> info@gaiva-aether.ai</li>
-                        <li><i class="fas fa-globe"></i> www.gaiva-aether.ai</li>
-                    </ul>
+                    <div class="contact-info">
+                        <i class="fas fa-envelope"></i>
+                        <span>info@gaiva-aether.ai</span>
+                    </div>
+                    <div class="contact-info">
+                        <i class="fab fa-linkedin"></i>
+                        <a href="https://www.linkedin.com/in/mourad-soltani-b124b6122" target="_blank">Mourad Soltani</a>
+                    </div>
+                    <div class="contact-info">
+                        <i class="fas fa-globe"></i>
+                        <span>www.gaiva-aether.ai</span>
+                    </div>
                 </div>
             </div>
             <div class="copyright">
                 <p>&copy; 2023 Gaiva&Aether AI Architecture. All rights reserved.</p>
+                <p>Designed by Mourad Soltani</p>
             </div>
         </div>
     </footer>
@@ -698,6 +815,16 @@
             } else {
                 header.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.05)';
             }
+        });
+
+        // Simple animation for payment methods
+        document.querySelectorAll('.payment-method').forEach(method => {
+            method.addEventListener('mouseenter', function() {
+                this.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.15)';
+            });
+            method.addEventListener('mouseleave', function() {
+                this.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.08)';
+            });
         });
     </script>
 </body>
